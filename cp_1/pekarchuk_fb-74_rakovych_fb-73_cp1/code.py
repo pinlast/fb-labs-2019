@@ -2,9 +2,8 @@ import sys
 import re
 import math
 
-from operator import itemgetter
 from itertools import groupby 
-
+from operator import itemgetter
 from collections import defaultdict
 
 
@@ -24,13 +23,15 @@ def remove_not_alpha(data):
 
 def get_ngram_dict(lines, n=2):
     ngram_dict = defaultdict(int)
-    res_dict = dict()
     for line in lines:
         for i in range(0, len(line), n):
             ngram = line[i:i+n]
-            ngram_dict[ngram] += 1
+            if len(ngram) == n:
+                ngram_dict[ngram] += 1
 
+    print(ngram_dict)
 
+    res_dict = dict()
     ngram_dict_len = len(ngram_dict)
     for item, value in ngram_dict.items():
         res_dict[item] = value / ngram_dict_len
@@ -39,12 +40,18 @@ def get_ngram_dict(lines, n=2):
 
 
 def get_entropy(ngram_dict, num):
-    res=0
-    for elem in ngram_dict:
-        res+=(elem*math.log(elem,2))*len(ngram_dict[elem])
-    res*=(-1/num)
+    result=0
+    
+    grouped_dict = defaultdict(list)
+    for key, value in sorted(ngram_dict.items()):
+        grouped_dict[value].append(key)
+    
+    print(grouped_dict)
 
-    return res
+    for item, value in grouped_dict.items():
+        result+=(item*math.log(item,2))*len(value)
+
+    return result * (-1/num)
 
 
 def get_redundancy(entropy):
@@ -58,15 +65,7 @@ def main():
     filtered_lines = remove_not_alpha(lines)
     ngram_dict = get_ngram_dict(filtered_lines, num)
 
-    snd = itemgetter(1)
-
-    inv_map = dict()
-    grouped = groupby(sorted(ngram_dict.items(), key=snd), snd)
-    for number, var in grouped:
-        inv_map.update({number: [item for item, _ in var]})
-
-
-    entropy = get_entropy(inv_map, num)
+    entropy = get_entropy(ngram_dict, num)
     redundancy = get_redundancy(entropy)
     
     print(len(ngram_dict))
@@ -74,8 +73,8 @@ def main():
     for item, value in ngram_dict.items():
         print(item, ' -> ', value)
 
-    print(entropy)
-    print(redundancy)
+    print("entropy: ", entropy)
+    print("redundancy: ", redundancy)
 
 
 if __name__ == '__main__':
