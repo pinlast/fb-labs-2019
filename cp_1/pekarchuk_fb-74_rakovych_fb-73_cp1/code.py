@@ -1,9 +1,5 @@
-import sys
-import re
 import math
-
-from itertools import groupby 
-from operator import itemgetter
+import re
 from collections import defaultdict
 
 
@@ -11,51 +7,53 @@ def get_file_lines():
     with open('TEXT') as f:
         return f.readlines()
 
-    
+
 def remove_not_alpha(data):
     res = list()
     for line in data:
-        line = re.sub('[^а-яА-Я]+', '', line.lower())
+        line = re.sub('[^а-яА-Я ]+', '', line.lower())
         res.append(line)
-    
+
     return res
 
 
 def get_ngram_dict(lines, n=2):
+    ngram_counter = 0
     ngram_dict = defaultdict(int)
     for line in lines:
         for i in range(0, len(line), n):
             ngram = line[i:i+n]
-            if len(ngram) == n:
-                ngram_dict[ngram] += 1
+            if len(ngram) != n:
+                continue
 
-    print(ngram_dict)
+            ngram_dict[ngram] += 1
+            ngram_counter += 1
 
     res_dict = dict()
-    ngram_dict_len = len(ngram_dict)
     for item, value in ngram_dict.items():
-        res_dict[item] = value / ngram_dict_len
+        res_dict[item] = value / ngram_counter
 
     return res_dict
 
 
 def get_entropy(ngram_dict, num):
-    result=0
-    
-    grouped_dict = defaultdict(list)
-    for key, value in sorted(ngram_dict.items()):
-        grouped_dict[value].append(key)
-    
-    print(grouped_dict)
+    result = 0
+
+    grouped_dict = dict()
+    for item, value in ngram_dict.items():
+        try:
+            grouped_dict[value].append(item)
+        except KeyError:
+            grouped_dict[value] = [item]
 
     for item, value in grouped_dict.items():
-        result+=(item*math.log(item,2))*len(value)
+        result += (item * math.log(item, 2)) * len(value)
 
     return result * (-1/num)
 
 
 def get_redundancy(entropy):
-    return 1-(entropy/(math.log(33,2)))
+    return 1-(entropy/(math.log(33, 2)))
 
 
 def main():
@@ -67,9 +65,9 @@ def main():
 
     entropy = get_entropy(ngram_dict, num)
     redundancy = get_redundancy(entropy)
-    
+
     print(len(ngram_dict))
-    
+
     for item, value in ngram_dict.items():
         print(item, ' -> ', value)
 
