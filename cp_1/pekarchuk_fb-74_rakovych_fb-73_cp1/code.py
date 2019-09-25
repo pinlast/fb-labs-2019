@@ -58,6 +58,24 @@ def get_redundancy(entropy):
     return 1-(entropy/(math.log(33, 2)))
 
 
+def write_to_file(
+        ngram_dict,
+        entropy_val,
+        redundancy_val,
+        need_space,
+        num,
+        fname
+    ):
+    with open('out.txt', 'w') as f:
+        f.write(f'Got text from {fname}...filtering out non-alphas{" and spaces" if not need_space else ""}...looking for {num}-grams\nResult:\n')
+
+        for item, value in ngram_dict.items():
+                f.write(item + ' -> ' + str(value) + '\n')
+
+        f.write("Entropy: " + str(entropy_val) + '\n')
+        f.write("Redundancy: " + str(redundancy_val) + '\n')
+
+
 def main():
     num = int(sys.argv[1]) if len(sys.argv) >= 2 else 2
     need_space = eval(sys.argv[2]) if len(sys.argv) >= 3 else False
@@ -76,6 +94,15 @@ def main():
 
     print("entropy: ", entropy_val)
     print("redundancy: ", redundancy_val)
+
+    write_to_file(
+        ngram_dict,
+        entropy_val,
+        redundancy_val,
+        need_space,
+        num,
+        fname
+    )
 
 
 if __name__ == '__main__':
