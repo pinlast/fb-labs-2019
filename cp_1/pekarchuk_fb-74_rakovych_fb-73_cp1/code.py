@@ -9,12 +9,12 @@ def get_file_lines(fname):
         return f.readlines()
 
 
-def remove_not_alpha(data, need_space):
+def remove_not_alpha(lines, need_space):
     return_list = list()
-    for line in data:
+    for line in lines:
         re_check = '[^а-яА-Я{}]+'.format(' ' if need_space else '')
-        line = re.sub(re_check, '', line.lower())
-        return_list.append(line)
+        fixed_line = re.sub(re_check, '', line.lower())
+        return_list.append(fixed_line)
 
     return return_list
 
@@ -23,8 +23,8 @@ def get_ngram_dict(lines, ngram_num=2, step=2):
     ngram_counter = 0
     ngram_dict = defaultdict(int)
     for line in lines:
-        for i in range(0, len(line), step):
-            ngram = line[i:i+ngram_num]
+        for char_counter in range(0, len(line), step):
+            ngram = line[char_counter:char_counter+ngram_num]
             if len(ngram) != ngram_num:
                 continue
 
@@ -32,8 +32,8 @@ def get_ngram_dict(lines, ngram_num=2, step=2):
             ngram_counter += 1
 
     return_dict = dict()
-    for elem, amount in ngram_dict.items():
-        return_dict[elem] = amount / ngram_counter
+    for elem, amount_in_text in ngram_dict.items():
+        return_dict[elem] = amount_in_text / ngram_counter
 
     return return_dict
 
@@ -48,8 +48,8 @@ def get_entropy(ngram_dict, num):
         except KeyError:
             grouped_dict[value] = [item]
 
-    for item, value in grouped_dict.items():
-        result += (item * math.log(item, 2)) * len(value)
+    for number, elements in grouped_dict.items():
+        result += (number * math.log(number, 2)) * len(elements)
 
     return result * (-1/num)
 
@@ -83,10 +83,21 @@ def main():
     step = int(sys.argv[4]) if len(sys.argv) >= 5 else num
 
     lines = get_file_lines(fname)
-    filtered_lines = remove_not_alpha(lines, need_space)
-    ngram_dict = get_ngram_dict(filtered_lines, num, step=step)
+    filtered_lines = remove_not_alpha(
+        lines,
+        need_space
+    )
+    
+    ngram_dict = get_ngram_dict(
+        filtered_lines,
+        num,
+        step=step
+    )
 
-    entropy_val = get_entropy(ngram_dict, num)
+    entropy_val = get_entropy(
+        ngram_dict,
+        num
+    )
     redundancy_val = get_redundancy(entropy_val)
 
     for item, value in ngram_dict.items():
