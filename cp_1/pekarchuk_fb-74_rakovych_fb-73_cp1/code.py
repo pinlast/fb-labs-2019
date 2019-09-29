@@ -80,7 +80,7 @@ def main():
     num = int(sys.argv[1]) if len(sys.argv) >= 2 else 2
     need_space = eval(sys.argv[2]) if len(sys.argv) >= 3 else False
     fname = sys.argv[3] if len(sys.argv) >= 4 else 'TEXT'
-    step = sys.argv[4] if len(sys.argv) >= 5 else num
+    step = int(sys.argv[4]) if len(sys.argv) >= 5 else num
 
     lines = get_file_lines(fname)
     filtered_lines = remove_not_alpha(lines, need_space)
