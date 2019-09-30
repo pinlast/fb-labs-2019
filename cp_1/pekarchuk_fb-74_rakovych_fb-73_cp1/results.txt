@@ -1,4 +1,29 @@
 1-gram without spaces
+entropy:  4.459208086129053
+redundancy:  0.11600719915671953
+
+1-gram with spaces 
+entropy:  4.353445819478285
+redundancy:  0.13697349642617596
+
+2-gram without spaces and without overlaying
+entropy:  4.141179852289086
+redundancy:  0.17905307271752957
+
+2-grams with spaces without overlaying
+entropy:  3.9717881434490683
+redundancy:  0.21263326190020204
+
+2-gram with spaces with overlaying
+entropy:  3.972171958395299
+redundancy:  0.21255717447777844
+
+2-grams without spaces with overlaying
+entropy:  4.138469481393185
+redundancy:  0.1795903762730745
+
+
+1-gram without spaces
 
 л  ->  0.048758568746898136
 е  ->  0.08119164927892049
