@@ -1,6 +1,6 @@
 import sys
 import collections
-from collections import defaultdict
+from collections import defaultdict, Counter
 
 eng_freq_dict = {
     'a': 0.08167, 'b': 0.01492, 'c': 0.02782, 'd': 0.04253, 'e': 0.12702,
@@ -68,14 +68,54 @@ def get_key_length(text):
             ic += val
         avrg_ics[i] = ic/i
 
-    print([(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)])
+    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][:3]
+
+
+def chi_alg(expected_occurances, real_occurances):
+    result = 0.0
+    for char in real_occurances.keys():
+        result += (real_occurances[char] - expected_occurances[char])**2 / expected_occurances[char]
+    return result
+
+
+def get_chi(subseq):
+    global rus
+    global rus_freq_dict
+    subseq_len = len(subseq)
+    lang_list = rus
+    lang_freq = rus_freq_dict
+    
+    result = dict()
+    expected_occurances = {key:value*subseq_len for key, value in lang_freq.items()}
+    for i in range(len(lang_freq)):
+        ceaser_subseq = ceasar_cipher(subseq, i, lang_list)
+        counter = Counter(ceaser_subseq)
+        real_occurances = {key:counter[key] for key in lang_freq.keys()}
+        chi_res = chi_alg(expected_occurances, real_occurances)
+        result[ceaser_subseq] = chi_res
+    return [(k, result[k]) for k in sorted(result, key=result.get, reverse=True)][-1]
+
+
+def ceasar_cipher(text, s, lang_list):
+    result = ""
+    for i in range(len(text)):
+        char = text[i]      
+        result += lang_list[(lang_list.index(char) + s) % len(lang_list)]
+    return result
+
+
+def get_key(key_lens, text):
+    lens = [key[0] for key in key_lens]
+    for key_len in lens:
+        subseq = "".join(get_subseq(key_len, text)[0])
+        print(get_chi(subseq), '='*20, '\n')
 
 
 def main(in_file):
     with open(in_file, 'r') as f:
         text = ''.join("".join([x for x in f.read().split() if  x.isalpha()]))
-        get_key_length(text)
-
+        key_len = get_key_length(text)
+        get_key(key_len, text)
 
 if __name__=='__main__':
     in_file = sys.argv[1]
