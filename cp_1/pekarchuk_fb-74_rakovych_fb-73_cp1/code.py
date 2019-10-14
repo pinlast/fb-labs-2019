@@ -69,8 +69,9 @@ def write_to_file(
     with open('out.txt', 'w') as f:
         f.write(f'Got text from {fname}...filtering out non-alphas{" and spaces" if not need_space else ""}...looking for {num}-grams\nResult:\n')
 
-        for item, value in ngram_dict.items():
-                f.write(item + ' -> ' + str(value) + '\n')
+        sorted_keys = sorted(ngram_dict.items(), key=lambda x: x[1], reverse=True)
+        for key, value in sorted_keys:
+            f.write(key + ' ' + str(value)[:8] + '\n')
 
         f.write("Entropy: " + str(entropy_val) + '\n')
         f.write("Redundancy: " + str(redundancy_val) + '\n')
@@ -100,11 +101,13 @@ def main():
     )
     redundancy_val = get_redundancy(entropy_val)
 
-    for item, value in ngram_dict.items():
-        print(item, ' -> ', value)
+    sorted_keys = sorted(ngram_dict.items(), key=lambda x: x[1], reverse=True)
+    for key, value in sorted_keys:
+        value = str(value)[:8] if 'e' not in str(value) else str(value)[:7] + str(value)[-4:]
+        print(key + ' ' + value)
 
-    print("entropy: ", entropy_val)
-    print("redundancy: ", redundancy_val)
+    print("Ентропія: ", entropy_val)
+    print("Надлишковість: ", redundancy_val)
 
     write_to_file(
         ngram_dict,
