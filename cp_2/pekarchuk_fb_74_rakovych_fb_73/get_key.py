@@ -68,7 +68,7 @@ def get_key_length(text):
             ic += val
         avrg_ics[i] = ic/i
 
-    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][:3]
+    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][:4]
 
 
 def chi_alg(expected_occurances, real_occurances):
@@ -92,7 +92,7 @@ def get_chi(subseq):
         counter = Counter(ceaser_subseq)
         real_occurances = {key:counter[key] for key in lang_freq.keys()}
         chi_res = chi_alg(expected_occurances, real_occurances)
-        result[ceaser_subseq] = chi_res
+        result[str(i) + '->' + ceaser_subseq] = chi_res
     return [(k, result[k]) for k in sorted(result, key=result.get, reverse=True)][-1]
 
 
@@ -106,14 +106,14 @@ def ceasar_cipher(text, s, lang_list):
 
 def get_key(key_lens, text):
     lens = [key[0] for key in key_lens]
-    for key_len in lens:
+    for key_len in [lens[3]]:
         subseq = "".join(get_subseq(key_len, text)[0])
         print(get_chi(subseq), '='*20, '\n')
 
 
 def main(in_file):
     with open(in_file, 'r') as f:
-        text = ''.join("".join([x for x in f.read().split() if  x.isalpha()]))
+        text = ''.join("".join([x.lower() for x in f.read().split() if  x.isalpha()]))
         key_len = get_key_length(text)
         get_key(key_len, text)
 

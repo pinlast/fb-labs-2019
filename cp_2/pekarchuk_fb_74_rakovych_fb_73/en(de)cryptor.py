@@ -17,7 +17,10 @@ def encrypt(in_file, out_file, lang, key, if_encrypt=False):
         for line in f.readlines():
             for elem in line:
                 if elem.lower() not in lang_list:
-                    encrypted_text += elem
+                    if elem.isalpha():
+                        continue
+                    else:
+                        encrypted_text += elem
                 else:  
                     elem_pos = lang_list.index(elem.lower())
                     moved_elem = lang_list.index(key[keyStep])
