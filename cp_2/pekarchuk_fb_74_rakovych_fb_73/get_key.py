@@ -18,11 +18,11 @@ rus_freq_dict={
     'я':0.02001, 'ы':0.01898, 'ь':0.01735, 'г':0.01687, 'з':0.01641,
     'б':0.01592, 'ч':0.01450, 'й':0.01208, 'х':0.00966, 'ж':0.00940,
     'ш':0.00718, 'ю':0.00639, 'ц':0.00486, 'щ':0.00361, 'э':0.00331,
-    'ф':0.00267, 'ъ':0.00037
+    'ф':0.00267, 'ъ':0.00037,
 }
 
 eng = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']    
-rus = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
+rus = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']# 'ё']
 
 
 def get_IC(text_part):
@@ -52,6 +52,7 @@ def get_subseq(i, text):
             except IndexError:
                 continue       
 
+    # print(sub_seq)
     return sub_seq
 
 
@@ -59,7 +60,7 @@ def get_key_length(text):
     IC_list = dict()
     sub_seqs = dict()
     avrg_ics = dict()
-    for i in range(2, 15):
+    for i in range(1, 20):
         ic = 0.0
         seqs = get_subseq(i, text)
         for seq in seqs.values():
@@ -68,7 +69,7 @@ def get_key_length(text):
             ic += val
         avrg_ics[i] = ic/i
 
-    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][:4]
+    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)]
 
 
 def chi_alg(expected_occurances, real_occurances):
@@ -84,16 +85,19 @@ def get_chi(subseq):
     subseq_len = len(subseq)
     lang_list = rus
     lang_freq = rus_freq_dict
-    
-    result = dict()
     expected_occurances = {key:value*subseq_len for key, value in lang_freq.items()}
-    for i in range(len(lang_freq)):
+
+    result = dict()
+    for i in range(len(lang_list)):
         ceaser_subseq = ceasar_cipher(subseq, i, lang_list)
+        
         counter = Counter(ceaser_subseq)
         real_occurances = {key:counter[key] for key in lang_freq.keys()}
-        chi_res = chi_alg(expected_occurances, real_occurances)
-        result[str(i) + '->' + ceaser_subseq] = chi_res
-    return [(k, result[k]) for k in sorted(result, key=result.get, reverse=True)][-1]
+
+        result[i] = chi_alg(expected_occurances, real_occurances)
+    # print([(k, result[k]) for k in sorted(result, key=result.get, reverse=False)])
+    
+    return [(k, result[k]) for k in sorted(result, key=result.get, reverse=False)]
 
 
 def ceasar_cipher(text, s, lang_list):
@@ -105,10 +109,19 @@ def ceasar_cipher(text, s, lang_list):
 
 
 def get_key(key_lens, text):
+    global rus
     lens = [key[0] for key in key_lens]
-    for key_len in [lens[3]]:
-        subseq = "".join(get_subseq(key_len, text)[0])
-        print(get_chi(subseq), '='*20, '\n')
+    for key_len in lens:
+        res = defaultdict(list)
+        subseqs = get_subseq(key_len, text)
+        for subseq in subseqs.values():
+            subseq = "".join(subseq)
+            chi_res = get_chi(subseq)
+            for i in range(len(chi_res)):
+                res[i].append(chi_res[i])
+
+        for key, values in res.items():
+            print(key, "".join([rus[value[0]] for value in values]))
 
 
 def main(in_file):
