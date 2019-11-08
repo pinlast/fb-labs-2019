@@ -1,6 +1,6 @@
-import sys
 import collections
-from collections import defaultdict, Counter
+import sys
+from collections import Counter, defaultdict
 
 eng_freq_dict = {
     'a': 0.08167, 'b': 0.01492, 'c': 0.02782, 'd': 0.04253, 'e': 0.12702,
@@ -11,35 +11,35 @@ eng_freq_dict = {
     'z': 0.00074
 }
 
-rus_freq_dict={
-    'о':0.10983, 'е':0.08483, 'а':0.07998, 'и':0.07367, 'н':0.0670,
-    'т':0.06318, 'с':0.05473, 'р':0.04746, 'в':0.04533, 'л':0.04343,
-    'к':0.03486, 'м':0.03203, 'д':0.02977, 'п':0.02804, 'у':0.02615,
-    'я':0.02001, 'ы':0.01898, 'ь':0.01735, 'г':0.01687, 'з':0.01641,
-    'б':0.01592, 'ч':0.01450, 'й':0.01208, 'х':0.00966, 'ж':0.00940,
-    'ш':0.00718, 'ю':0.00639, 'ц':0.00486, 'щ':0.00361, 'э':0.00331,
-    'ф':0.00267, 'ъ':0.00037,
+rus_freq_dict = {
+    'о': 0.10983, 'е': 0.08483, 'а': 0.07998, 'и': 0.07367, 'н': 0.0670,
+    'т': 0.06318, 'с': 0.05473, 'р': 0.04746, 'в': 0.04533, 'л': 0.04343,
+    'к': 0.03486, 'м': 0.03203, 'д': 0.02977, 'п': 0.02804, 'у': 0.02615,
+    'я': 0.02001, 'ы': 0.01898, 'ь': 0.01735, 'г': 0.01687, 'з': 0.01641,
+    'б': 0.01592, 'ч': 0.01450, 'й': 0.01208, 'х': 0.00966, 'ж': 0.00940,
+    'ш': 0.00718, 'ю': 0.00639, 'ц': 0.00486, 'щ': 0.00361, 'э': 0.00331,
+    'ф': 0.00267, 'ъ': 0.00037,
 }
 
-eng = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']    
-rus = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']# 'ё']
+eng = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+rus = ['а', 'б', 'в', 'г', 'д', 'е', 'ж', 'з', 'и', 'й', 'к', 'л', 'м', 'н', 'о', 'п', 'р', 'с', 'т', 'у', 'ф', 'х', 'ц', 'ч', 'ш', 'щ', 'ъ', 'ы', 'ь', 'э', 'ю', 'я']
 
 
 def get_IC(text_part):
     global rus
     lang_list = rus
 
-    cipher_flat  = "".join([x for x in text_part.split() if  x.isalpha()])
+    cipher_flat = "".join([x for x in text_part.split() if x.isalpha()])
     if len(cipher_flat) > 1:
-        N = len(cipher_flat) 
+        N = len(cipher_flat)
     else:
         return
-    freqs = collections.Counter( cipher_flat )
+    freqs = collections.Counter(cipher_flat)
     freqsum = 0.0
     for letter in lang_list:
-        freqsum += freqs[letter] * (freqs[ letter ] - 1)
+        freqsum += freqs[letter] * (freqs[letter] - 1)
 
-    IC = freqsum / ( N*(N-1) )
+    IC = freqsum / (N * (N - 1))
     return IC
 
 
@@ -48,9 +48,9 @@ def get_subseq(i, text):
     for j in range(0, len(text), i):
         for c in range(i):
             try:
-                sub_seq[c].append(text[j+c])
+                sub_seq[c].append(text[j + c])
             except IndexError:
-                continue       
+                continue
 
     return sub_seq
 
@@ -61,10 +61,10 @@ def get_key_length(text):
         ic = 0.0
         seqs = get_subseq(i, text)
         for seq in seqs.values():
-            seq_str = ''.join(seq)
+            seq_str = "".join(seq)
             val = get_IC(seq_str) if get_IC(seq_str) else 0.0
             ic += val
-        avrg_ics[i] = ic/i
+        avrg_ics[i] = ic / i
 
     return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][0]
 
@@ -74,13 +74,12 @@ def get_key(key_len, text):
     global rus_freq_dict
     lang_freq = rus_freq_dict
 
-    res = defaultdict(list)
     subseqs = get_subseq(key_len, text)
     subseqs_counter = list()
     for seq in subseqs.values():
         counter = Counter(seq)
-        subseqs_counter.append({key:counter[key] for key in lang_freq.keys()})
-        
+        subseqs_counter.append({key: counter[key] for key in lang_freq.keys()})
+
     key = find_key(subseqs_counter)
     return key
 
@@ -92,16 +91,16 @@ def find_key(freq_dicts):
     lang_freq_dict = rus_freq_dict
 
     lang_list_len = len(lang_list)
-    res=''
+    res = ""
     for freq_dict in freq_dicts:
-        temp_max=0
+        temp_max = 0
         for i in range(lang_list_len):
-            temp_sum=0
+            temp_sum = 0
             for char in lang_freq_dict:
                 try:
                     t_plus_g = lang_list[(lang_list.index(char) + i) % lang_list_len]
                     temp_sum += lang_freq_dict[char] * freq_dict[t_plus_g]
-                
+
                 except Exception as e:
                     print(e)
                     break
@@ -115,13 +114,14 @@ def find_key(freq_dicts):
 
 
 def main(in_file):
-    with open(in_file, 'r') as f:
-        text = "".join([x.lower() for x in f.read().split() if  x.isalpha()])
+    with open(in_file, "r") as f:
+        text = "".join([x.lower() for x in f.read().split() if x.isalpha()])
         key_len = get_key_length(text)[0]
         key = get_key(key_len, text)
         print(key)
 
-if __name__=='__main__':
+
+if __name__ == "__main__":
     in_file = sys.argv[1]
 
     main(in_file)
