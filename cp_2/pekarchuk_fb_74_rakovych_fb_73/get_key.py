@@ -52,15 +52,12 @@ def get_subseq(i, text):
             except IndexError:
                 continue       
 
-    # print(sub_seq)
     return sub_seq
 
 
 def get_key_length(text):
-    IC_list = dict()
-    sub_seqs = dict()
     avrg_ics = dict()
-    for i in range(1, 20):
+    for i in range(1, 30):
         ic = 0.0
         seqs = get_subseq(i, text)
         for seq in seqs.values():
@@ -69,66 +66,60 @@ def get_key_length(text):
             ic += val
         avrg_ics[i] = ic/i
 
-    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)]
+    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][0]
 
 
-def chi_alg(expected_occurances, real_occurances):
-    result = 0.0
-    for char in real_occurances.keys():
-        result += (real_occurances[char] - expected_occurances[char])**2 / expected_occurances[char]
-    return result
-
-
-def get_chi(subseq):
+def get_key(key_len, text):
     global rus
     global rus_freq_dict
-    subseq_len = len(subseq)
-    lang_list = rus
     lang_freq = rus_freq_dict
-    expected_occurances = {key:value*subseq_len for key, value in lang_freq.items()}
 
-    result = dict()
-    for i in range(len(lang_list)):
-        ceaser_subseq = ceasar_cipher(subseq, i, lang_list)
+    res = defaultdict(list)
+    subseqs = get_subseq(key_len, text)
+    subseqs_counter = list()
+    for seq in subseqs.values():
+        counter = Counter(seq)
+        subseqs_counter.append({key:counter[key] for key in lang_freq.keys()})
         
-        counter = Counter(ceaser_subseq)
-        real_occurances = {key:counter[key] for key in lang_freq.keys()}
-
-        result[i] = chi_alg(expected_occurances, real_occurances)
-    # print([(k, result[k]) for k in sorted(result, key=result.get, reverse=False)])
-    
-    return [(k, result[k]) for k in sorted(result, key=result.get, reverse=False)]
+    key = find_key(subseqs_counter)
+    return key
 
 
-def ceasar_cipher(text, s, lang_list):
-    result = ""
-    for i in range(len(text)):
-        char = text[i]      
-        result += lang_list[(lang_list.index(char) + s) % len(lang_list)]
-    return result
-
-
-def get_key(key_lens, text):
+def find_key(freq_dicts):
     global rus
-    lens = [key[0] for key in key_lens]
-    for key_len in lens:
-        res = defaultdict(list)
-        subseqs = get_subseq(key_len, text)
-        for subseq in subseqs.values():
-            subseq = "".join(subseq)
-            chi_res = get_chi(subseq)
-            for i in range(len(chi_res)):
-                res[i].append(chi_res[i])
+    global rus_freq_dict
+    lang_list = rus
+    lang_freq_dict = rus_freq_dict
 
-        for key, values in res.items():
-            print(key, "".join([rus[value[0]] for value in values]))
+    lang_list_len = len(lang_list)
+    res=''
+    for freq_dict in freq_dicts:
+        temp_max=0
+        for i in range(lang_list_len):
+            temp_sum=0
+            for char in lang_freq_dict:
+                try:
+                    t_plus_g = lang_list[(lang_list.index(char) + i) % lang_list_len]
+                    temp_sum += lang_freq_dict[char] * freq_dict[t_plus_g]
+                
+                except Exception as e:
+                    print(e)
+                    break
+
+            if temp_sum > temp_max:
+                temp_max = temp_sum
+                letter = lang_list[i]
+
+        res += letter
+    return res
 
 
 def main(in_file):
     with open(in_file, 'r') as f:
-        text = ''.join("".join([x.lower() for x in f.read().split() if  x.isalpha()]))
-        key_len = get_key_length(text)
-        get_key(key_len, text)
+        text = "".join([x.lower() for x in f.read().split() if  x.isalpha()])
+        key_len = get_key_length(text)[0]
+        key = get_key(key_len, text)
+        print(key)
 
 if __name__=='__main__':
     in_file = sys.argv[1]
