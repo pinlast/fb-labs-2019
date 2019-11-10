@@ -65,6 +65,8 @@ def get_key_length(text):
             val = get_IC(seq_str) if get_IC(seq_str) else 0.0
             ic += val
         avrg_ics[i] = ic / i
+    
+    print("\nIC: ", [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][:6], '\n')
 
     return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][0]
 
@@ -115,10 +117,10 @@ def find_key(freq_dicts):
 
 def main(in_file):
     with open(in_file, "r") as f:
-        text = "".join([x.lower() for x in f.read().split() if x.isalpha()])
+        text = "".join([x.lower().strip() for x in f.read().split() if x.isalpha()])
         key_len = get_key_length(text)[0]
         key = get_key(key_len, text)
-        print(key)
+        print("Ключ: ", key)
 
 
 if __name__ == "__main__":
