@@ -1,6 +1,9 @@
 import collections
 import sys
 from collections import Counter, defaultdict
+import matplotlib.pyplot as plt; plt.rcdefaults()
+import numpy as np
+import matplotlib.pyplot as plt
 
 eng_freq_dict = {
     'a': 0.08167, 'b': 0.01492, 'c': 0.02782, 'd': 0.04253, 'e': 0.12702,
@@ -29,12 +32,12 @@ def get_IC(text_part):
     global rus
     lang_list = rus
 
-    cipher_flat = "".join([x for x in text_part.split() if x.isalpha()])
-    if len(cipher_flat) > 1:
-        N = len(cipher_flat)
+    text = "".join([x for x in text_part.split() if x.isalpha()])
+    if len(text) > 1:
+        N = len(text)
     else:
         return
-    freqs = collections.Counter(cipher_flat)
+    freqs = collections.Counter(text)
     freqsum = 0.0
     for letter in lang_list:
         freqsum += freqs[letter] * (freqs[letter] - 1)
@@ -66,9 +69,15 @@ def get_key_length(text):
             ic += val
         avrg_ics[i] = ic / i
     
-    print("\nIC: ", [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][:6], '\n')
+    sorted_ic = [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)]
+    print("\nIC: ", sorted_ic[:6], '\n')
+    
+    plt.bar([x[0] for x in sorted_ic], [x[1] for x in sorted_ic], align='center', alpha=1)
+    plt.ylabel('IC')
+    plt.title('IC for different key length while decrypting')
+    plt.show()
 
-    return [(k, avrg_ics[k]) for k in sorted(avrg_ics, key=avrg_ics.get, reverse=True)][0]
+    return sorted_ic[0]
 
 
 def get_key(key_len, text):

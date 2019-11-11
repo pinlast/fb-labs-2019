@@ -15,7 +15,7 @@ def encrypt(in_file, out_file, lang, key, action = 'encrypt'):
     keyStep = 0
     with open(in_file, "r") as f:
         for line in f.readlines():
-            for elem in line:
+            for elem in "".join([x.lower().strip() for x in line.split() if x.isalpha()]):
                 if elem.lower() not in lang_list:
                         encrypted_text += elem
                 else:  
