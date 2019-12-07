@@ -1,0 +1,678 @@
+Попарно перебрані пари найчастіших теоретичних біграм:
+
+[('ст', 'но'), ('ст', 'то'), ('ст', 'на'), ('ст', 'ен'), ('но', 'ст'), ('но', 'то'), ('но', 'на'), ('но', 'ен'), ('то', 'ст'), ('то', 'но'), ('то', 'на'), ('то', 'ен'), ('на', 'ст'), ('на', 'но'), ('на', 'то'), ('на', 'ен'), ('ен', 'ст'), ('ен', 'но'), ('ен', 'то'), ('ен', 'на')]
+
+Попарно перебрані пари найчастіших біграм з шифртексту:
+
+[('сг', 'жэ'), ('сг', 'нг'), ('сг', 'ям'), ('сг', 'цр'), ('жэ', 'сг'), ('жэ', 'нг'), ('жэ', 'ям'), ('жэ', 'цр'), ('нг', 'сг'), ('нг', 'жэ'), ('нг', 'ям'), ('нг', 'цр'), ('ям', 'сг'), ('ям', 'жэ'), ('ям', 'нг'), ('ям', 'цр'), ('цр', 'сг'), ('цр', 'жэ'), ('цр', 'нг'), ('цр', 'ям')]
+
+Ключі що дають неможливий текст: 
+
+Key: ('вф', 'эп') 82 883
+Text is not valid: Impossible bigram found: аь
+
+Key: ('пр', 'ущ') 481 614
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хш', 'фи') 675 628
+Text is not valid: Impossible bigram found: аь
+
+Key: ('жш', 'ни') 210 411
+Text is not valid: Impossible bigram found: аь
+
+Key: ('щш', 'ьи') 799 814
+Text is not valid: Impossible bigram found: аь
+
+Key: ('фз', 'кю') 627 339
+Text is not valid: Impossible bigram found: эь
+
+Key: ('йщ', 'вг') 304 65
+Text is not valid: Impossible bigram found: аь
+
+Key: ('кл', 'тэ') 321 586
+Text is not valid: Impossible bigram found: аь
+
+Key: ('иш', 'ри') 272 504
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ыш', 'юи') 861 907
+Text is not valid: Impossible bigram found: аь
+
+Key: ('уш', 'си') 613 535
+Text is not valid: Impossible bigram found: аь
+
+Key: ('мм', 'тп') 384 573
+Text is not valid: Impossible bigram found: аь
+
+Key: ('со', 'мш') 541 396
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ыо', 'гм') 851 105
+Text is not valid: Impossible bigram found: аь
+
+Key: ('щк', 'шт') 785 762
+Text is not valid: Impossible bigram found: аь
+
+Key: ('пч', 'фч') 488 643
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ех', 'тэ') 176 586
+Text is not valid: Impossible bigram found: аь
+
+Key: ('эл', 'зд') 879 221
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цд', 'бц') 686 53
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цп', 'дг') 697 127
+Text is not valid: Impossible bigram found: аь
+
+Key: ('шг', 'те') 747 563
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ьс', 'ьм') 823 818
+Text is not valid: Impossible bigram found: аь
+
+Key: ('жх', 'дэ') 207 152
+Text is not valid: Impossible bigram found: аь
+
+Key: ('дт', 'ыя') 142 867
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ет', 'оя') 173 464
+Text is not valid: Impossible bigram found: аь
+
+Key: ('уы', 'ыэ') 616 865
+Text is not valid: Impossible bigram found: аь
+
+Key: ('лн', 'ир') 354 264
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ьх', 'мэ') 827 400
+Text is not valid: Impossible bigram found: аь
+
+Key: ('яш', 'ти') 954 566
+Text is not valid: Impossible bigram found: аь
+
+Key: ('шз', 'рю') 751 525
+Text is not valid: Impossible bigram found: аь
+
+Key: ('до', 'ьр') 138 822
+Text is not valid: Impossible bigram found: аь
+
+Key: ('кж', 'ом') 316 446
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йн', 'ир') 292 264
+Text is not valid: Impossible bigram found: аь
+
+Key: ('шж', 'гм') 750 105
+Text is not valid: Impossible bigram found: аь
+
+Key: ('пз', 'тю') 472 587
+Text is not valid: Impossible bigram found: аь
+
+Key: ('из', 'чю') 255 742
+Text is not valid: Impossible bigram found: аь
+
+Key: ('бш', 'хи') 55 659
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хх', 'чг') 672 716
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ся', 'ьг') 557 809
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ьд', 'чг') 810 716
+Text is not valid: Impossible bigram found: аь
+
+Key: ('шк', 'лт') 754 359
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хж', 'ом') 657 446
+Text is not valid: Impossible bigram found: аь
+
+Key: ('дш', 'ки') 148 318
+Text is not valid: Impossible bigram found: аь
+
+Key: ('лш', 'еи') 365 163
+Text is not valid: Impossible bigram found: аь
+
+Key: ('яш', 'юо') 954 913
+Text is not valid: Impossible bigram found: аь
+
+Key: ('тз', 'зю') 565 246
+Text is not valid: Impossible bigram found: аь
+
+Key: ('эы', 'иж') 895 254
+Text is not valid: Impossible bigram found: аь
+
+Key: ('нб', 'йр') 404 295
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зр', 'ьг') 233 809
+Text is not valid: Impossible bigram found: аь
+
+Key: ('аз', 'лю') 7 370
+Text is not valid: Impossible bigram found: эь
+
+Key: ('хз', 'ыю') 658 866
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хд', 'чт') 655 731
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цы', 'ыэ') 709 865
+Text is not valid: Impossible bigram found: аь
+
+Key: ('нз', 'пю') 410 494
+Text is not valid: Impossible bigram found: эь
+
+Key: ('фй', 'тк') 629 568
+Text is not valid: Impossible bigram found: аь
+
+Key: ('бз', 'эю') 38 897
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зщ', 'юг') 242 902
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йф', 'яп') 299 945
+Text is not valid: Impossible bigram found: аь
+
+Key: ('рк', 'чц') 506 735
+Text is not valid: Impossible bigram found: аь
+
+Key: ('эб', 'ыю') 869 866
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йы', 'нц') 306 425
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ьш', 'ми') 830 380
+Text is not valid: Impossible bigram found: аь
+
+Key: ('дк', 'зг') 134 220
+Text is not valid: Impossible bigram found: аь
+
+Key: ('бч', 'вр') 54 78
+Text is not valid: Impossible bigram found: аь
+
+Key: ('вш', 'зи') 86 225
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ит', 'жя') 266 216
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ии', 'шч') 256 767
+Text is not valid: Impossible bigram found: аь
+
+Key: ('мя', 'др') 402 140
+Text is not valid: Impossible bigram found: аь
+
+Key: ('фг', 'эе') 623 873
+Text is not valid: Impossible bigram found: аь
+
+Key: ('их', 'ьэ') 269 834
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ут', 'нм') 607 415
+Text is not valid: Impossible bigram found: аь
+
+Key: ('рг', 'яф') 499 950
+Text is not valid: Impossible bigram found: аь
+
+Key: ('оз', 'бю') 441 60
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ро', 'яш') 510 954
+Text is not valid: Impossible bigram found: аь
+
+Key: ('еш', 'ыи') 179 845
+Text is not valid: Impossible bigram found: аь
+
+Key: ('яз', 'щю') 937 804
+Text is not valid: Impossible bigram found: аь
+
+Key: ('сж', 'хэ') 533 679
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зй', 'эк') 226 878
+Text is not valid: Impossible bigram found: аь
+
+Key: ('чи', 'ьэ') 721 834
+Text is not valid: Impossible bigram found: аь
+
+Key: ('щж', 'хм') 781 663
+Text is not valid: Impossible bigram found: аь
+
+Key: ('тш', 'аи') 582 8
+Text is not valid: Impossible bigram found: аь
+
+Key: ('чк', 'аэ') 723 28
+Text is not valid: Impossible bigram found: аь
+
+Key: ('эш', 'пи') 892 473
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ьд', 'ьт') 810 824
+Text is not valid: Impossible bigram found: аь
+
+Key: ('чш', 'чи') 737 721
+Text is not valid: Impossible bigram found: аь
+
+Key: ('рж', 'ом') 502 446
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ом', 'чп') 446 728
+Text is not valid: Impossible bigram found: эь
+
+Key: ('оо', 'дш') 448 148
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ыл', 'щд') 848 779
+Text is not valid: Impossible bigram found: аь
+
+Key: ('че', 'ба') 718 31
+Text is not valid: Impossible bigram found: аь
+
+Key: ('мш', 'ци') 396 690
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йм', 'рг') 291 499
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ым', 'мг') 849 375
+Text is not valid: Impossible bigram found: аь
+
+Key: ('чз', 'яю') 720 959
+Text is not valid: Impossible bigram found: эь
+
+Key: ('рс', 'уз') 513 596
+Text is not valid: Impossible bigram found: аь
+
+Key: ('аш', 'ди') 24 132
+Text is not valid: Impossible bigram found: аь
+
+Key: ('рз', 'дю') 503 153
+Text is not valid: Impossible bigram found: эь
+
+Key: ('ьн', 'зф') 819 237
+Text is not valid: Impossible bigram found: эь
+
+Key: ('гш', 'ши') 117 752
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ды', 'ыэ') 151 865
+Text is not valid: Impossible bigram found: аь
+
+Key: ('гй', 'цк') 102 692
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хк', 'лг') 661 344
+Text is not valid: Impossible bigram found: аь
+
+Key: ('лз', 'мю') 348 401
+Text is not valid: Impossible bigram found: эь
+
+Key: ('гу', 'чр') 112 729
+Text is not valid: Impossible bigram found: аь
+
+Key: ('по', 'сш') 479 551
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хж', 'лм') 657 353
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йк', 'аэ') 289 28
+Text is not valid: Impossible bigram found: аь
+
+Key: ('гя', 'яг') 123 933
+Text is not valid: Impossible bigram found: аь
+
+Key: ('щз', 'вю') 782 91
+Text is not valid: Impossible bigram found: аь
+
+Key: ('юн', 'яф') 912 950
+Text is not valid: Impossible bigram found: аь
+
+Key: ('юд', 'чг') 903 716
+Text is not valid: Impossible bigram found: аь
+
+Key: ('бы', 'ыэ') 58 865
+Text is not valid: Impossible bigram found: аь
+
+Key: ('фш', 'ги') 644 101
+Text is not valid: Impossible bigram found: аь
+
+Key: ('аз', 'чо') 7 727
+Text is not valid: Impossible bigram found: аь
+
+Key: ('пс', 'вз') 482 69
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йш', 'ви') 303 70
+Text is not valid: Impossible bigram found: аь
+
+Key: ('еп', 'иг') 170 251
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ос', 'шз') 451 751
+Text is not valid: Impossible bigram found: аь
+
+Key: ('иы', 'фж') 275 626
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ху', 'чр') 670 729
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йщ', 'иу') 304 267
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зх', 'уг') 238 592
+Text is not valid: Impossible bigram found: аь
+
+Key: ('шш', 'йи') 768 287
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ам', 'рг') 12 499
+Text is not valid: Impossible bigram found: аь
+
+Key: ('кш', 'уи') 334 597
+Text is not valid: Impossible bigram found: аь
+
+Key: ('юк', 'шм') 909 756
+Text is not valid: Impossible bigram found: аь
+
+Key: ('пп', 'пщ') 480 490
+Text is not valid: Impossible bigram found: аь
+
+Key: ('аь', 'ха') 26 651
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зз', 'жю') 224 215
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цр', 'хщ') 698 676
+Text is not valid: Impossible bigram found: аь
+
+Key: ('кц', 'юе') 332 904
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ир', 'им') 264 260
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ез', 'гю') 162 122
+Text is not valid: Impossible bigram found: аь
+
+Key: ('чц', 'пе') 735 470
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ип', 'сщ') 263 552
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ош', 'щи') 458 783
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ру', 'ею') 515 184
+Text is not valid: Impossible bigram found: аь
+
+Key: ('бб', 'дг') 32 127
+Text is not valid: Impossible bigram found: аь
+
+Key: ('бт', 'дя') 49 154
+Text is not valid: Impossible bigram found: аь
+
+Key: ('гр', 'эх') 109 889
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ту', 'кю') 577 339
+Text is not valid: Impossible bigram found: аь
+
+Key: ('тб', 'аг') 559 3
+Text is not valid: Impossible bigram found: аь
+
+Key: ('жб', 'фю') 187 649
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цк', 'рт') 692 514
+Text is not valid: Impossible bigram found: аь
+
+Key: ('нщ', 'пм') 428 477
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цч', 'цч') 705 705
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хк', 'гт') 661 111
+Text is not valid: Impossible bigram found: еь
+
+Key: ('шя', 'ая') 774 30
+Text is not valid: Impossible bigram found: аь
+
+Key: ('кэ', 'би') 338 39
+Text is not valid: Impossible bigram found: аь
+
+Key: ('му', 'чр') 391 729
+Text is not valid: Impossible bigram found: аь
+
+Key: ('мз', 'юю') 379 928
+Text is not valid: Impossible bigram found: аь
+
+Key: ('сз', 'хю') 534 680
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хл', 'йд') 662 283
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зч', 'вр') 240 78
+Text is not valid: Impossible bigram found: аь
+
+Key: ('нф', 'щэ') 423 803
+Text is not valid: Impossible bigram found: аь
+
+Key: ('бх', 'мэ') 52 400
+Text is not valid: Impossible bigram found: аь
+
+Key: ('лд', 'ыг') 345 840
+Text is not valid: Impossible bigram found: аь
+
+Key: ('кщ', 'ьу') 335 825
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ыб', 'йр') 838 295
+Text is not valid: Impossible bigram found: эь
+
+Key: ('фф', 'кр') 640 326
+Text is not valid: Impossible bigram found: аь
+
+Key: ('шй', 'шк') 753 754
+Text is not valid: Impossible bigram found: аь
+
+Key: ('уз', 'шю') 596 773
+Text is not valid: Impossible bigram found: эь
+
+Key: ('цз', 'ню') 689 432
+Text is not valid: Impossible bigram found: аь
+
+Key: ('тм', 'мг') 570 375
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цш', 'жи') 706 194
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ьз', 'ую') 813 618
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ощ', 'цэ') 459 710
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йз', 'йю') 286 308
+Text is not valid: Impossible bigram found: аь
+
+Key: ('рр', 'ох') 512 455
+Text is not valid: Impossible bigram found: аь
+
+Key: ('рш', 'эи') 520 876
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зш', 'яи') 241 938
+Text is not valid: Impossible bigram found: аь
+
+Key: ('сл', 'гр') 538 109
+Text is not valid: Impossible bigram found: аь
+
+Key: ('фщ', 'вг') 645 65
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ид', 'ыг') 252 840
+Text is not valid: Impossible bigram found: аь
+
+Key: ('чж', 'ом') 719 446
+Text is not valid: Impossible bigram found: аь
+
+Key: ('гс', 'тр') 110 574
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цн', 'бф') 695 51
+Text is not valid: Impossible bigram found: аь
+
+Key: ('гз', 'аю') 100 29
+Text is not valid: Impossible bigram found: эь
+
+Key: ('чп', 'хм') 728 663
+Text is not valid: Impossible bigram found: аь
+
+Key: ('юз', 'ию') 906 277
+Text is not valid: Impossible bigram found: аь
+
+Key: ('жэ', 'ли') 214 349
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хт', 'нм') 669 415
+Text is not valid: Impossible bigram found: аь
+
+Key: ('юя', 'др') 929 140
+Text is not valid: Impossible bigram found: аь
+
+Key: ('иф', 'нп') 268 418
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ыз', 'ею') 844 184
+Text is not valid: Impossible bigram found: аь
+
+Key: ('оп', 'цу') 449 701
+Text is not valid: Impossible bigram found: аь
+
+Key: ('жщ', 'фу') 211 639
+Text is not valid: Impossible bigram found: аь
+
+Key: ('фж', 'шм') 626 756
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ып', 'иу') 852 267
+Text is not valid: Impossible bigram found: еь
+
+Key: ('кз', 'ью') 317 835
+Text is not valid: Impossible bigram found: аь
+
+Key: ('жц', 'уе') 208 594
+Text is not valid: Impossible bigram found: эь
+
+Key: ('гж', 'ом') 99 446
+Text is not valid: Impossible bigram found: аь
+
+Key: ('яу', 'чр') 949 729
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хк', 'шм') 661 756
+Text is not valid: Impossible bigram found: аь
+
+Key: ('щн', 'шф') 788 764
+Text is not valid: Impossible bigram found: аь
+
+Key: ('вя', 'шя') 92 774
+Text is not valid: Impossible bigram found: аь
+
+Key: ('вз', 'ою') 69 463
+Text is not valid: Impossible bigram found: эь
+
+Key: ('эз', 'цю') 875 711
+Text is not valid: Impossible bigram found: аь
+
+Key: ('яе', 'яа') 935 930
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ещ', 'ву') 180 81
+Text is not valid: Impossible bigram found: аь
+
+Key: ('дз', 'сю') 131 556
+Text is not valid: Impossible bigram found: аь
+
+Key: ('пи', 'цч') 473 705
+Text is not valid: Impossible bigram found: аь
+
+Key: ('оэ', 'жф') 462 206
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ыц', 'ще') 859 780
+Text is not valid: Impossible bigram found: аь
+
+Key: ('цл', 'цд') 693 686
+Text is not valid: Impossible bigram found: эь
+
+Key: ('нш', 'ии') 427 256
+Text is not valid: Impossible bigram found: аь
+
+Key: ('пш', 'ли') 489 349
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ыщ', 'юг') 862 902
+Text is not valid: Impossible bigram found: аь
+
+Key: ('жз', 'фю') 193 649
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ды', 'кц') 151 332
+Text is not valid: Impossible bigram found: аь
+
+Key: ('юш', 'би') 923 39
+Text is not valid: Impossible bigram found: аь
+
+Key: ('гф', 'оп') 113 449
+Text is not valid: Impossible bigram found: аь
+
+Key: ('нс', 'зз') 420 224
+Text is not valid: Impossible bigram found: аь
+
+Key: ('зь', 'ча') 243 713
+Text is not valid: Impossible bigram found: аь
+
+Key: ('сш', 'ои') 551 442
+Text is not valid: Impossible bigram found: аь
+
+Key: ('хр', 'цг') 667 685
+Text is not valid: Impossible bigram found: аь
+
+Key: ('ох', 'ец') 455 177
+Text is not valid: Impossible bigram found: аь
+
+Key: ('вд', 'нц') 66 425
+Text is not valid: Impossible bigram found: аь
+
+Key: ('щр', 'им') 791 260
+Text is not valid: Impossible bigram found: аь
+
+Key: ('йп', 'хм') 294 663
+Text is not valid: Impossible bigram found: аь
+
+Key: ('юи', 'ьэ') 907 834
+Text is not valid: Impossible bigram found: аь
+
+ Texts that passed validation:
+
+Key: ('йх', 'мэ') or (300, 400)
+
+поздновечеромнаверандесиделколяичтотописалвтемнотебумагуитутолкомнельзябылоразглядетьвремяотвременионвосклицалагаилииэтотожезначитемувголовуприходилоещечтонибудьподходящеедляегоспискапотомдверьчутьстукнулаточновсеткуотмоскитовудариласьночнаябабочкалинашепнулауфманонаселарядомснимнакачеливоднойночнойсорочкенетоненькаякаксемнадцатилетняядевочкакоторуюещенелюбятинетолстаякакпятидесятилетняяженщинакоторуюуженелюбятноскладнаяикрепкаяименнотакаякакнадотаковыженщинывовсякомвозрастееслионилюбимыонабылаудивительнаяеетелокакиегособственноевсегдадумалозанеетолькоподругомуоновынашивалодетейиливходиловпередилеовкаждуюкомнатучтобынеуловимоизменитьтамсамыйвоздухподстатьнастроениюмужаказалосьонаникогданезадумываетсянадолгомысльтотчаспередаваласьотееголовыплечампальцамипретворяласьвдействиетакнезаметноиестественночтолеонесмогбыдаинехотелизобразитьэтокакимилибочертежамиэтамашинасказалаонанаконецненужнаонанамдаотозвалсяонноиногданужнопозаботитьсяиодругихявотвседумаючтотудавставитькинокартинырадиоприемникистереоскопическиеочкиеслисобратьвсеэтовместевсякийчеловекпощупаетулыбнетсяискажетдадаэтоиестьсчастьесочинитьтакуюхитруюмеханикудумалончтопускайучеловекапромоклиногиилиноетязваилиегомучаетбессонницаионворочаетсявпостеливсюночьнапролетидушуегогрызутзаботыавсеравнотвоямашинадастемусчастьекактамагическаякрупинкасоличтоброшенавокеанивечнорождаетсольиобратилавсеморевсолянойрастворктонерасшибсябывлепешкулишьбыизобреститакуюмашинупустьемуответитнаэтотвопросцелыймирпустьответитвесьгородокпустьответитженалинасмущенномолчаласидярядомснимнакачеляхиеемолчаниеговорилояснеевсякихсловлеотожеумолкзапрокинулголовуислушалкаксвищетветервгустойлиствемогучеговязанезабывайговорилонсебеиэтотшелестлистьевтоженужендлятвоеймашинычерезминутуверандаопустелапустыекачелинеподвижноповисливтемнотедедушкаулыбнулсявоснеонпочувствовалэтуулыбкуудивилсяейипроснулсяполежалнемногоприслушалсяксебеипонялоткудаонавзяласьибоонуслышалнечтогораздоболееважноенежелипениептицилишелестмолодойлиствыкаждыйгоднаступалденькогдаонвоттакпросыпалсяиждалэтогозвукакоторыйозначалчтотеперьтоужлетоначалосьпонастоящемуононачиналосьвотвтакоеутрокогдактонибудьиздомочадцевилигостейплемянниксыниливнуквыходилналужайкуподегоокномиметаллическиеножииспицыкружаизвеняподушистойлетнейтравеприлежнообегалиеепокраямнасевернавостокнаюгназападописываявсеменьшиеименьшиеквадратыкосилказвонкострекоталаизподножейбрызгалиголовкиклевераредкиезолотыеискрыуцелевшихпослесбораодуванчиковмуравьипалочкикамешкиостаткипрошлогоднегопразднованиячетвертогоиюляобгорелыешутихиикусочкитрутаноглавноезанейстлалсяпрохладныйчистыйпотоксочнойзеленойтравыдедушкеужепредставлялоськаконащекочетегоногиохлаждаетразгоряченноелицонаполняетноздриизвечнымароматомвновьродившегосялетаиобещаетдамывсевсепроживемещецелыйгодвеликоечудокосилкаговорилсебедедушкакакойэтодураквыдумалчтоновыйгодначинаетсяпервогоянварянадобылопоставитьдозорныхкараулитьросттравынамиллионахлужаекиллинойсаогайоилиайовыикакзаметятчтоонасозреладлясенокосавтосамоеутровместофейерверковфанфарикриковпустьначинаетсявеликаябурнаясимфониякосилоксрезающихсвежиетравынанеобятныхлуговыхпросторахвтотединственныйденьвгодукоторыйпонастоящемузнаменуетсобойначалолюдямнадобыбросатьдругвдруганеконфеттиинесерпантинапригоршнисвежескошеннойтравыдедушкахмыкнулчтотоужбольнодолгуюфилософиюразвелвсталподошелкокнуивысунулсявласковыйсолнечныйсветтакиестьфорестерновыйжилецмолодойгазетчиккакраззаканчиваетряддоброеутромистерсполдингтакеехорошенькобиллсжаромкрикнулдедушкаивскореужесиделвнизуиуплеталприготовленныйбабушкойзавтракширокоеокнобылораскрытоижужжаньекосилкисловноподпевалозавтракуотэтойкосилкинадушестановитсяспокойнеезаметилдедушкатытолькопослушайтеперьужнедолгонамееслушатьотозваласьбабушкаипоставиланастолгоркупшеничныхлепешекбиллфорестерпосеетсегодняновыйсорттравыеененадобудеткоситьнепомнюкактамонаназываетсяноонакаквырастетскольконужнотаксамаиостановитсяибольшенерастетдедушкасизумлениемуставилсянаженудовольноглупаяшуткасказалоннаконецидипосмотрисамбиллфорестерговоритэтоземленапользусказалабабушкаонужепривезновыесеменаонисложенызадомомвмаленькихкорзинкахнужновразныхместахвырытьямкиизасыпатьтудасеменакконцугодановаятраваубьетвсюстаруюитогдаможешьпродаватьсвоюкосилкуонатебебольшенепонадобитсядедушкасорвалсясостулаимигомвыскочилводворбиллфорестеростановилкосилкуижмурясьотсолнцасулыбкойподошелкнемувоттактосказалонвчеракупилновыесеменадайдумаюзасеювамлужайкупокаясвободенаменяпочемунеспросилилужайкатовсетакимоязакричалдедушкаядумалвыбудетедовольнымистерсполдингничегоянедоволенпокажитемнеэтучертовутравуонистояливозлемаленькихчетырехугольныхкорзиноксновомоднымисеменамидедушкаподозрительнопотыкалоднуизнихноскомбашмакапомоемуэтосамаяобыкновеннаятраваавыуверенычтовасненадулиявкалифорниивиделкаконарастетвотнастольковырастетивсееслитолькоонаприживетсявздешнемклиматенамуженабудущийгоднепридетсякаждуюнеделюподстригатьлужайкувтомтоибедасвашимпоколениемсказалдедушкамнестыднозавасбиллаещежурналиствыготовыуничтожитьвсечтоестьнасветехорошеготолькобытратитьпоменьшевременипоменьшетрудавотчеговыдобиваетесьоннепочтительнопнулкорзинкуногойвотпоживетесмоетогдапойметечтомелкиерадостикудаважнеекрупныхраноутромповеснепрогулятьсяпешкомневпримерлучшечемкатитьвосемьдесятмильвсамомроскошномавтомобилеазнаетепочемупотомучтовсевокругблагоухаетвсерастетицвететкогдаидешьпешкоместьвремяоглядетьсявокругзаметитьсамуюмалуюкрасотуяпонимаюсейчасвамхочетсяохватитьвсесразуиэтонаверноестественноэтосвойствомолодостиногазетчикунадоуметьвидетьимелкийвинограданетолькоогромныеарбузывамподавайцелыйскелетасменядовольноиследапальцевчтожтожепонятносейчасмелочикажутсявамскучныминоможетвыпростоещенезнаетеимценынеумеетенаходитьвнихвкусдайвамволювыбыиздализаконобустранениивсехмелкихделвсехмелочейнотогдавамнечегобылобыделатьвперерывемеждубольшимиделамиипришлосьбыдоисступленияпридумыватьсебезанятиечтобынесойтисуматакужлучшепоучилисьбыкоечемуусамойприродыподстригатьтравуивыпалыватьсорнякитожеоднаизрадостейжизнисынокбиллфорестерласковоулыбнулсястарикузнаюзнаюсказалдедушкаястановлюсьслишкомболтливымвжизниникогонеслушалстакимудовольствиемтогдапродолжимлекциюкустсиренилучшеорхидейиодуванчикитожеичертополохапочемудапотомучтоонихотьненадолгоотвлекаютчеловекауводятегоотлюдейигородазаставляютпопотетьивозвращаютснебесназемлюиужкогдатывесьтутиниктотебенемешаетхотьненадолгоостаешьсянаединессамимсобойиначинаешьдуматьодинбезпостороннейпомощикогдакопаешьсявсадусамоевремяпофилософствоватьниктообэтомнедогадываетсяниктотебянеобвиняетниктоинезнаетничегоатыстановишьсязаправскимфилософомэдакийплатонсредипионовсократкоторыйсамсебевыращиваетцикутутотктотащитнаспинепосвоейлужайкемешокнавозасродниатласуукоторогонаплечахвращаетсяземнойшарсэмюэлсполдингэсквайрсказалоднаждыкопаяземлюпокопайсяусебявдушевертителопастиэтойкосилкибиллидаороситвасживительнаяструяфонтанаюностилекцияоконченакрометогоизредкаоченьпользительноотведатьзелениодуванчиковавыдавноелизеленьодуванчиковнаужинсэрнебудемуточнятьбиллкивнулилегонькостукнулближайшуюкорзинкуноскомбашмакатаквотнасчетэтойтравыяещеневсевамсказалонарастеттакгусточтонаверняказаглушитиклевериодуванчикигосподипомилуйзначитуженабудущийгодмыостанемсябезвинаизодуванчиковиниоднойпчелынадлужайкойдавыпростосумасошлипослушайтескольковызаплатилизаэтисеменадолларкорзинкаякупилдесятьштуквамвподарокдедушкаполезвкарманвытащилстаромодныйдлинныйкошелекотстегнулсеребрянуюзастежкуиизвлектрибумажкипопятьдолларовбиллвытолькочтосовершилипревыгоднуюсделкузаработалипятьдолларовизвольтесейчасжеотправитьвсюэтучересчурпрозаическуютравувоврагнапомойкусловомкудахотитетолькопокорнейшепрошунесейтеееуменяводвореязнаюувассамыепохвальныенамеренияноявсетакиужедостигвесьмапочтенноговозрастаисмоимижеланияминегрехсчитатьсявпервуюочередьаа
