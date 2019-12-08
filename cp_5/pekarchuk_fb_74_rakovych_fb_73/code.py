@@ -86,8 +86,6 @@ class RSAClass:
             
             if x != in_number - 1 and x != 1:
                 for i in range(s):
-                    if i >= s:
-                        break
                     if pow(x, 2, in_number) == 1:
                         return False
                 
