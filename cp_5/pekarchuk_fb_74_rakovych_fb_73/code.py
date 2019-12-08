@@ -32,6 +32,8 @@ def inv(a, m):
 
 class RSAClass:
     def __init__(self, ):
+        self.e = 0
+        self.n = 0
         self.p = self.generate_prime_number(length=256)
         self.q = self.generate_prime_number(length=256)
         self.keypair = self.generate_keypair(self.p, self.q)
@@ -42,7 +44,11 @@ class RSAClass:
 
         n = p * q
         phi = (p-1) * (q-1)
-        e = randrange(1, phi)
+        e = randrange(1, phi)  # same as phi - 1
+        
+        # saving data to model for future
+        self.e = e
+        self.n = n
 
         # verify e and phi mutually prime
         g = gcd(e, phi)
@@ -107,17 +113,24 @@ class RSAClass:
 
         return binascii.unhexlify(hex(decrypted_text)[2:]).decode()
 
+    def generate_sign(self, plaintext):
+        hex_data = binascii.hexlify(plaintext.encode())
+        m = int(hex_data, 16)
+        return (m, self.keypair[0][0])
+
 
 def main():
     message = input('Message: ')
     rsa = RSAClass()
     encrypted = rsa.encrypt(rsa.keypair[0], message)
     decrypted = rsa.decrypt(rsa.keypair[1], encrypted)
+    sign = rsa.generate_sign(message)
     
     print('Open key: ', rsa.keypair[0][0], '\n\n')
     print('Secret key: ', rsa.keypair[0][0], '\n\n')
     print('Encrypted text: ', encrypted, '\n\n')
     print('Decrypted text: ', decrypted, '\n\n')
+    print('Signature: ', sign, '\n\n')
 
 
 if __name__ == '__main__':
