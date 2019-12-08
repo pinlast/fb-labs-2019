@@ -111,24 +111,41 @@ class RSAClass:
 
         return binascii.unhexlify(hex(decrypted_text)[2:]).decode()
 
-    def generate_sign(self, plaintext):
-        hex_data = binascii.hexlify(plaintext.encode())
-        m = int(hex_data, 16)
-        return (m, self.keypair[0][0])
+    def sign(self, e_1, n_1):
+        n = self.keypair[0][1]
+        d = self.keypair[1][0]
+        k = randrange(0, n)
+
+        s = pow(k, d, n)
+        s_1 = pow(s, e_1, n_1)
+        k_1 = pow(k, e_1, n_1)
+
+        return (k_1, s_1)
+    
+    def verify(self, sign, a_e, a_n):
+        k_1, s_1 = sign
+        k = pow(k_1, self.keypair[1][0], self.n)
+        s = pow(s_1, self.keypair[1][0], self.n)
+
+        return k == pow(s, a_e, a_n)
 
 
 def main():
     message = input('Message: ')
-    rsa = RSAClass()
-    encrypted = rsa.encrypt(rsa.keypair[0], message)
-    decrypted = rsa.decrypt(rsa.keypair[1], encrypted)
-    sign = rsa.generate_sign(message)
+    rsa_a = RSAClass()
+    encrypted = rsa_a.encrypt(rsa_a.keypair[0], message)
+    decrypted = rsa_a.decrypt(rsa_a.keypair[1], encrypted)
     
-    print('Open key: ', rsa.keypair[0][0], '\n\n')
-    print('Secret key: ', rsa.keypair[1][0], '\n\n')
+    print('Open key: ', rsa_a.keypair[0][0], '\n\n')
+    print('Secret key: ', rsa_a.keypair[1][0], '\n\n')
     print('Encrypted text: ', encrypted, '\n\n')
     print('Decrypted text: ', decrypted, '\n\n')
-    print('Signature: ', sign, '\n\n')
+    
+    rsa_b = RSAClass()
+    sign_b = rsa_b.sign(rsa_a.e, rsa_a.n) 
+    verify_sign = rsa_a.verify(sign_b, rsa_a.keypair[0][0], rsa_a.keypair[0][1])
+
+    print(verify_sign)
 
 
 if __name__ == '__main__':
