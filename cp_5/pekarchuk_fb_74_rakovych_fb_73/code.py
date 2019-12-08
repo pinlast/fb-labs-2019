@@ -109,9 +109,15 @@ class RSAClass:
 
 
 def main():
+    message = input('Message: ')
     rsa = RSAClass()
-    encrypted = rsa.encrypt(rsa.keypair[0], 'test')
-    print(rsa.decrypt(rsa.keypair[1], encrypted))
+    encrypted = rsa.encrypt(rsa.keypair[0], message)
+    decrypted = rsa.decrypt(rsa.keypair[1], encrypted)
+    
+    print('Open key: ', rsa.keypair[0][0], '\n\n')
+    print('Secret key: ', rsa.keypair[0][0], '\n\n')
+    print('Encrypted text: ', encrypted, '\n\n')
+    print('Decrypted text: ', decrypted, '\n\n')
 
 
 if __name__ == '__main__':
