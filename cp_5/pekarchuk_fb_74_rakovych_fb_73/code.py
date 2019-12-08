@@ -83,12 +83,12 @@ class RSAClass:
 
         for i in range(test_number):  # making n tests
             x = pow(randrange(2, in_number - 1), d, in_number)
-            
+  
             if x != in_number - 1 and x != 1:
-                for i in range(s):
+                for j in range(s):
                     if pow(x, 2, in_number) == 1:
                         return False
-                
+
                 if x != in_number - 1:
                     return False   
 
