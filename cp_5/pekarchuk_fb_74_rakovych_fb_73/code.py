@@ -125,7 +125,7 @@ def main():
     sign = rsa.generate_sign(message)
     
     print('Open key: ', rsa.keypair[0][0], '\n\n')
-    print('Secret key: ', rsa.keypair[0][0], '\n\n')
+    print('Secret key: ', rsa.keypair[1][0], '\n\n')
     print('Encrypted text: ', encrypted, '\n\n')
     print('Decrypted text: ', decrypted, '\n\n')
     print('Signature: ', sign, '\n\n')
