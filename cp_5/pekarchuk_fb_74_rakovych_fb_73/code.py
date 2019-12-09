@@ -53,7 +53,7 @@ class RSAClass:
         # verify e and phi mutually prime
         g = gcd(e, phi)
         while g != 1:
-            print('e and phi was\'t mutually prime')
+            print('e and phi wasn\'t mutually prime')
             e = randrange(1, phi)
             g = gcd(e, phi)
 
@@ -111,23 +111,32 @@ class RSAClass:
 
         return binascii.unhexlify(hex(decrypted_text)[2:]).decode()
 
-    def sign(self, e_1, n_1):
+    def sign(self, message):
+        hex_data = binascii.hexlify(message.encode())
+        message = int(hex_data, 16)
+        
         n = self.keypair[0][1]
         d = self.keypair[1][0]
-        k = randrange(0, n)
+        res = pow(message, n, d)
 
-        s = pow(k, d, n)
-        s_1 = pow(s, e_1, n_1)
-        k_1 = pow(k, e_1, n_1)
+        return res
 
-        return (k_1, s_1)
-    
-    def verify(self, sign, a_e, a_n):
-        k_1, s_1 = sign
-        k = pow(k_1, self.keypair[1][0], self.n)
-        s = pow(s_1, self.keypair[1][0], self.n)
+    def verify(self, sined_message):
+        return pow(sined_message, self.e, self.n)
 
-        return k == pow(s, a_e, a_n)
+    def send_key(self, key, e2, n2, encrypted_sign):
+        encrypted_key = self.encrypt((e2, n2), key)
+
+        return encrypted_key
+
+    def recieve_key(self, encrypted_key, encrypted_sign, d2, n2, e1, n1):
+        decrypted_key_result = self.decrypt((d2, n2), encrypted_key)
+        key = self.verify(decrypted_key_result)
+
+        if key == decrypted_key_result:
+            return True
+
+        return False
 
 
 def main():
@@ -142,8 +151,8 @@ def main():
     print('Decrypted text: ', decrypted, '\n\n')
     
     rsa_b = RSAClass()
-    sign_b = rsa_b.sign(rsa_a.e, rsa_a.n) 
-    verify_sign = rsa_a.verify(sign_b, rsa_a.keypair[0][0], rsa_a.keypair[0][1])
+    sign_b = rsa_b.sign(message) 
+    verify_sign = rsa_a.verify(sign_b)
 
     print(verify_sign)
 
