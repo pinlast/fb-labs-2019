@@ -107,9 +107,14 @@ class RSAClass:
 
     def decrypt(self, pk, ciphertext):
         key, n = pk
-        decrypted_text = pow(ciphertext, key, n)
+        decrypted = pow(ciphertext, key, n)
 
-        return binascii.unhexlify(hex(decrypted_text)[2:]).decode()
+        try:
+            return binascii.unhexlify(hex(decrypted)[2:]).decode()
+        except UnicodeDecodeError:
+            return decrypted
+        except:
+            print('error')
 
     def sign(self, message):
         hex_data = binascii.hexlify(message.encode())
@@ -125,12 +130,14 @@ class RSAClass:
         return pow(sined_message, self.e, self.n)
 
     def send_key(self, key, e2, n2, encrypted_sign):
+        signed_result = self.sign(key)
         encrypted_key = self.encrypt((e2, n2), key)
 
         return encrypted_key
 
-    def recieve_key(self, encrypted_key, encrypted_sign, d2, n2, e1, n1):
-        decrypted_key_result = self.decrypt((d2, n2), encrypted_key)
+    def recieve_key(self, encrypted_key, encrypted_sign):
+        decrypted_sign_result = self.decrypt((self.keypair[0][0], self.keypair[0][1]), encrypted_sign)
+        decrypted_key_result = self.decrypt((self.keypair[0][0], self.keypair[0][1]), encrypted_key)
         key = self.verify(decrypted_key_result)
 
         if key == decrypted_key_result:
@@ -152,9 +159,12 @@ def main():
     
     rsa_b = RSAClass()
     sign_b = rsa_b.sign(message) 
+    key_b = rsa_b.send_key(message, rsa_a.e, rsa_a.keypair[0][1], sign_b)
     verify_sign = rsa_a.verify(sign_b)
+    recieve_key = rsa_a.recieve_key(key_b, sign_b)
 
-    print(verify_sign)
+    print(verify_sign, '\n')
+    print(recieve_key, '\n')
 
 
 if __name__ == '__main__':
