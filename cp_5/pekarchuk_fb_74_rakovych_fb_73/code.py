@@ -65,7 +65,7 @@ class RSAClass:
     def generate_prime_number(self, length=1024):
         p = 4
         while not self.miller_rabin(p, 128):
-            p = (getrandbits(length) | 1)  # | 1 so it's not even
+            p = (getrandbits(length) | 1) + (1 << length)  # | 1 so it's not even
 
         return p
 
