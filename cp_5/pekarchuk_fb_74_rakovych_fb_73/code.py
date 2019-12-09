@@ -87,6 +87,7 @@ class RSAClass:
             if x != in_number - 1 and x != 1:
                 for j in range(s):
                     if pow(x, 2, in_number) == 1:
+                        print('Not approved: ', pow(x, 2, in_number))
                         return False
 
                 if x != in_number - 1:
@@ -95,13 +96,8 @@ class RSAClass:
         return True
 
     def encrypt(self, pk, plaintext):
-        
-        # hashing text
-        hex_data = binascii.hexlify(plaintext.encode())
-        plaintext = int(hex_data, 16)
         key, n = pk
 
-        # ecnrypting with plaintext ** key % n
         cipher = pow(plaintext, key, n)
         return cipher
 
@@ -109,62 +105,46 @@ class RSAClass:
         key, n = pk
         decrypted = pow(ciphertext, key, n)
 
-        try:
-            return binascii.unhexlify(hex(decrypted)[2:]).decode()
-        except UnicodeDecodeError:
-            return decrypted
-        except:
-            print('error')
+        return decrypted
 
-    def sign(self, message):
-        hex_data = binascii.hexlify(message.encode())
-        message = int(hex_data, 16)
-        
-        n = self.keypair[0][1]
-        d = self.keypair[1][0]
-        res = pow(message, n, d)
+    def sign(self, message, n, d):
+        return (message, pow(message, n, d))
 
-        return res
+    def verify(self, message, S, e, n):
+        return message == pow(S, e, n)
 
-    def verify(self, sined_message):
-        return pow(sined_message, self.e, self.n)
+    def send_key(self, message, e, n, d, n_2):
+        sign = self.sign(message, d, n_2)
 
-    def send_key(self, key, e2, n2, encrypted_sign):
-        signed_result = self.sign(key)
-        encrypted_key = self.encrypt((e2, n2), key)
+        return (self.encrypt((e, n), sign[0]), self.encrypt((e, n), sign[1]))
 
-        return encrypted_key
-
-    def recieve_key(self, encrypted_key, encrypted_sign):
-        decrypted_sign_result = self.decrypt((self.keypair[0][0], self.keypair[0][1]), encrypted_sign)
-        decrypted_key_result = self.decrypt((self.keypair[0][0], self.keypair[0][1]), encrypted_key)
-        key = self.verify(decrypted_key_result)
-
-        if key == decrypted_key_result:
-            return True
-
-        return False
+    def recieve_key(self, message, e, n, d, n_2):
+        s = pow(message, d, n)
+        verify = self.verify(message, s, e, n)
+        return (verify, self.decrypt((d, n_2), message))
 
 
 def main():
-    message = input('Message: ')
     rsa_a = RSAClass()
+    rsa_b = RSAClass()
+    print(rsa_a.p, '\n\n', rsa_a.q, '\n\n')
+    print(rsa_b.p, '\n\n', rsa_b.q, '\n\n')
+
+    print(rsa_a.e, '\n', rsa_a.n, '\n', rsa_a.keypair[1][0])
+    print(rsa_b.e, '\n', rsa_b.n, '\n', rsa_b.keypair[1][0])
+    message = int(input('Message: '))
     encrypted = rsa_a.encrypt(rsa_a.keypair[0], message)
     decrypted = rsa_a.decrypt(rsa_a.keypair[1], encrypted)
-    
-    print('Open key: ', rsa_a.keypair[0][0], '\n\n')
-    print('Secret key: ', rsa_a.keypair[1][0], '\n\n')
-    print('Encrypted text: ', encrypted, '\n\n')
-    print('Decrypted text: ', decrypted, '\n\n')
-    
-    rsa_b = RSAClass()
-    sign_b = rsa_b.sign(message) 
-    key_b = rsa_b.send_key(message, rsa_a.e, rsa_a.keypair[0][1], sign_b)
-    verify_sign = rsa_a.verify(sign_b)
-    recieve_key = rsa_a.recieve_key(key_b, sign_b)
-
-    print(verify_sign, '\n')
-    print(recieve_key, '\n')
+    sign_a = rsa_a.sign(message, rsa_a.keypair[1][1], rsa_a.keypair[1][0])
+    sign_b = rsa_b.sign(message, rsa_b.keypair[1][1], rsa_b.keypair[1][0])
+    print(encrypted)
+    print(decrypted)
+    print(sign_a)
+    print(sign_b)
+    # s = pow(message, rsa_a.keypair[1][0], rsa_a.keypair[1][1])
+    # verify = rsa_a.verify(message, s, rsa_a.e, rsa_a.n)
+    # key = rsa_a.send_key(message, rsa_a.e, rsa_a.n, rsa_a.keypair[1][0], rsa_b.n)
+    # recieved = rsa_b.recieve_key(message, rsa_b.e, rsa_b.n, rsa_b.keypair[1][0], rsa_a.n)
 
 
 if __name__ == '__main__':
