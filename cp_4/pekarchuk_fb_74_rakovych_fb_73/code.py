@@ -15,7 +15,7 @@ def lfsr(init_state, curr_state, polynom, autocorr, period):
             prev_list.append(curr_state[j])
             for d in range(11):
                 autocorr[d] += curr_state[j] ^ curr_state[(j+d) % curr_state.size]
-                # print(autocorr[d])
+                print(autocorr[d])
 
         new_bit = 0
         for item in polynom:
