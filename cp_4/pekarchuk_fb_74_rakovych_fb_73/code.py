@@ -14,8 +14,8 @@ def lfsr(init_state, curr_state, polynom, autocorr, period):
         for j in range(curr_state.size):
             prev_list.append(curr_state[j])
             for d in range(11):
-                autocorr[d] += autocorr(curr_state, j, d)
-                print(autocorr[d])
+                autocorr[d] += curr_state[j] ^ curr_state[(j+d) % curr_state.size]
+                # print(autocorr[d])
 
         new_bit = 0
         for item in polynom:
@@ -43,10 +43,6 @@ def lfsr(init_state, curr_state, polynom, autocorr, period):
     return None
 
 
-def autocorr(curr_state, j, d):
-    return curr_state[j] ^ curr_state[(j+d) % curr_state.size]
-
-
 async def get_polygrams(prev, num, out_file):
     result = defaultdict(int)
     poly_counter = 0
@@ -59,7 +55,9 @@ async def get_polygrams(prev, num, out_file):
             poly_string = poly_string[1::1]
             poly_counter -= -1 # oh yeah baby
 
-    out_file.write(f"{num}-gramm: total count = {poly_counter}: \n{result}\n\n")
+    message = f"{num}-gramm: total count = {poly_counter}: \n{result}\n\n"
+    print(message)
+    out_file.write(message)
     return poly_counter
 
 
@@ -124,7 +122,7 @@ def main():
         (20,18,11,10,8,7,6,5,0),
         (24,17,14,13,12,9,6,0)
     ]
-    for i in range(0, 2):
+    for i in range(0, len(polynoms)):
         filename = f"out{i}.txt"
         out_file = open(filename, "w") 
         runner(polynoms[i], out_file)
