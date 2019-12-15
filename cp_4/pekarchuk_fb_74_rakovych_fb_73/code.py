@@ -1,66 +1,135 @@
-from numba import njit
+from numba import cuda, jit, njit, vectorize, types
+from numba.typed import List, Dict
 import numpy as np
+import random
+from collections import defaultdict
+import asyncio
 
-global global_period
+@njit()
+def lfsr(init_state, curr_state, polynom, autocorr, period):
+    counter = 0
+    prev_list = List()
+    while True:
 
-@njit
-def lfsr(init_state, curr_state, polynom, period):
-    i=0
-    
-    while True:    
-        if i <= 10:
-            summ = 0
-            for j in range(curr_state.size):
-                summ += curr_state[j] ^ init_state[j]
-            print("AutoCorr.", i,": ", summ, curr_state)
+        for j in range(curr_state.size):
+            prev_list.append(curr_state[j])
+            for d in range(11):
+                autocorr[d] += autocorr(curr_state, j, d)
+                print(autocorr[d])
 
         new_bit = 0
-        for elem in polynom:
-            new_bit ^= curr_state[elem]
+        for item in polynom:
+            if item != init_state.size:
+                new_bit ^= curr_state[item]
 
-        i += 1
+        counter += 1
+        if counter > curr_state.size:
+            print(counter)
 
-        for j in range(curr_state.size - 1):
+        for j in range(curr_state.size-1):
             curr_state[j] = curr_state[j+1]
         curr_state[-1] = new_bit
 
-        check = True
-
+        validated = True
         for j in range(curr_state.size):
             if curr_state[j] != init_state[j]:
-                check = False
+                validated = False
                 break
 
-        if check == True:
-            period[0] = i
-            return
+        if validated:
+            period[0] = counter
+            return prev_list
+
+    return None
 
 
-def lab_experiments2(polynom):
-    print("Polynom: {}\nq^(n)-1: {}".format(polynom, 2**(polynom[0]+1)-1))
-    init_state = (1,) + (0,) * polynom[0]
+def autocorr(curr_state, j, d):
+    return curr_state[j] ^ curr_state[(j+d) % curr_state.size]
+
+
+async def get_polygrams(prev, num, out_file):
+    result = defaultdict(int)
+    poly_counter = 0
+    poly_string = ''
+
+    for item in prev:
+        poly_string += str(item)
+        if len(poly_string) == num:
+            result[poly_string] += 1
+            poly_string = poly_string[1::1]
+            poly_counter -= -1 # oh yeah baby
+
+    out_file.write(f"{num}-gramm: total count = {poly_counter}: \n{result}\n\n")
+    return poly_counter
+
+
+def runner(polynom, out_file):
+
+    initial_message = f"Polynom: {polynom}\nq ** (n) - 1: {2 ** (polynom[0]) - 1}"
+    print(initial_message)
+    out_file.write(initial_message)
     
-    for i in range(polynom[0] + 1):
-        init_stateArr = np.array(init_state, np.int64)
-        polynomArr = np.array(polynom, np.int64)
-        curr_stateArr = np.copy(init_stateArr)
-        
+    init_state = [1] + [0] * (polynom[0] - 1)
+    for i in range(polynom[0]):
+        if i < polynom[0] - 1:
+            init_state = [0] + init_state[:-1]
+            continue
+
+        initial_array = np.array(init_state, np.int64)
+        polynom_array = np.array(polynom, np.int64)
+        current_array = np.copy(initial_array)
+        autocorr_dict = Dict.empty(key_type=types.int64, value_type=types.int64)
+
+        for i in range(0, 11):
+            # will fill up later
+            autocorr_dict[i] = 0
+
         period = np.ones(1, dtype=np.int64)
-        
-        lfsr(init_stateArr, curr_stateArr, polynomArr, period)
-        '''
-        if period > global_period:
-            global_period = period  
-        '''
-        print(f"\nInit State: {''.join(map(str, init_stateArr))}\nPeriod: {period[0]}\nCurr State: {''.join(map(str, curr_stateArr))}\n")
-        init_state = (0,) + init_state[:-1]
+        res = lfsr(  # linear feedback shift register runs here
+            initial_array,
+            current_array,
+            polynom_array,
+            autocorr_dict,
+            period
+        )
+
+        message = (
+            f"\nInitial state: {''.join([str(i) for i in initial_array])}\n"
+            f"period: {period[0]}\n"
+            f"result state: {''.join([str(i) for i in current_array])}\n"
+            f"autocorrection values: {autocorr_dict}\n" + "="*40 + "\n"
+        )
+        print(message)
+        out_file.write(message)
+
+        # running getting polygrams in async
+        loop = asyncio.get_event_loop()
+        futures = list()
+        for i in range(1, 6):
+            futures.append(get_polygrams(res, i, out_file))
+
+        results = loop.run_until_complete(asyncio.gather(*futures))
+        loop.close()
+
+        for result in results:
+            print(result)
+
+        init_state = [0] + init_state[:-1]
+
+    return
 
 
 def main():
-    lab_experiments2((20, 18, 11, 10, 8, 7, 6, 5, 0))
-    # lab_experiments2((24, 17, 14, 13, 12, 9, 6, 0))
-    
-    
+    polynoms = [
+        (20,18,11,10,8,7,6,5,0),
+        (24,17,14,13,12,9,6,0)
+    ]
+    for i in range(0, 2):
+        filename = f"out{i}.txt"
+        out_file = open(filename, "w") 
+        runner(polynoms[i], out_file)
+        out_file.close()
+
 
 if __name__ == "__main__":
     main()
