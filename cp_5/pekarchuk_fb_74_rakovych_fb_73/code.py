@@ -34,6 +34,7 @@ class RSAClass:
     def __init__(self, ):
         self.e = 0
         self.n = 0
+        self.d = 0
         self.p = self.generate_prime_number(length=256)
         self.q = self.generate_prime_number(length=256)
         self.keypair = self.generate_keypair(self.p, self.q)
@@ -59,8 +60,9 @@ class RSAClass:
 
         # generating secret key with eucl. alg.
         d = inv(e, phi)
+        self.d = d
 
-        return ((e, n), (d, n))
+        return ((n, e), (d, e))
 
     def generate_prime_number(self, length=1024):
         p = 4
@@ -108,14 +110,13 @@ class RSAClass:
         return decrypted
 
     def sign(self, message, n, d):
-        return (message, pow(message, n, d))
+        return (message, pow(message, d, n))
 
     def verify(self, message, S, e, n):
         return message == pow(S, e, n)
 
     def send_key(self, message, e, n, d, n_2):
         sign = self.sign(message, d, n_2)
-
         return (self.encrypt((e, n), sign[0]), self.encrypt((e, n), sign[1]))
 
     def recieve_key(self, message, e, n, d, n_2):
@@ -123,29 +124,26 @@ class RSAClass:
         verify = self.verify(message, s, e, n)
         return (verify, self.decrypt((d, n_2), message))
 
+    def dec2hex(self, n):
+        try:
+            return (hex(n)[2:]).upper()
+        except Exception as e:
+            print(str(e))
+        return 
+
+    def hex2dec(self, h):
+        try:
+            return int(h, 16)
+        except Exception as e:
+            print(str(e))
+        return 
 
 def main():
     rsa_a = RSAClass()
-    rsa_b = RSAClass()
-    print(rsa_a.p, '\n\n', rsa_a.q, '\n\n')
-    print(rsa_b.p, '\n\n', rsa_b.q, '\n\n')
-
-    print(rsa_a.e, '\n', rsa_a.n, '\n', rsa_a.keypair[1][0])
-    print(rsa_b.e, '\n', rsa_b.n, '\n', rsa_b.keypair[1][0])
-    message = int(input('Message: '))
-    encrypted = rsa_a.encrypt(rsa_a.keypair[0], message)
-    decrypted = rsa_a.decrypt(rsa_a.keypair[1], encrypted)
-    sign_a = rsa_a.sign(message, rsa_a.keypair[1][1], rsa_a.keypair[1][0])
-    sign_b = rsa_b.sign(message, rsa_b.keypair[1][1], rsa_b.keypair[1][0])
-    print(encrypted)
-    print(decrypted)
-    print(sign_a)
-    print(sign_b)
-    # s = pow(message, rsa_a.keypair[1][0], rsa_a.keypair[1][1])
-    # verify = rsa_a.verify(message, s, rsa_a.e, rsa_a.n)
-    # key = rsa_a.send_key(message, rsa_a.e, rsa_a.n, rsa_a.keypair[1][0], rsa_b.n)
-    # recieved = rsa_b.recieve_key(message, rsa_b.e, rsa_b.n, rsa_b.keypair[1][0], rsa_a.n)
-
+    message = 3
+    print('Sign: ', rsa_a.dec2hex(rsa_a.sign(message, rsa_a.n, rsa_a.d)[1]))
+    print('Modulus:', rsa_a.dec2hex(rsa_a.keypair[0][0]))
+    print('Public exponent: ', rsa_a.dec2hex(rsa_a.keypair[0][1]))
 
 if __name__ == '__main__':
     main()
