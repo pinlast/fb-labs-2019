@@ -10,12 +10,9 @@ def lfsr(init_state, curr_state, polynom, autocorr, period):
     counter = 0
     prev_list = List()
     while True:
-
-        for j in range(curr_state.size):
-            prev_list.append(curr_state[j])
-            for d in range(11):
-                autocorr[d] += curr_state[j] ^ curr_state[(j+d) % curr_state.size]
-                print(autocorr[d])
+        for d in range(1, 11):
+            for i in range(0, curr_state.size):
+                prev_list.append(curr_state[i])
 
         new_bit = 0
         for item in polynom:
@@ -78,7 +75,7 @@ def runner(polynom, out_file):
         current_array = np.copy(initial_array)
         autocorr_dict = Dict.empty(key_type=types.int64, value_type=types.int64)
 
-        for i in range(0, 11):
+        for i in range(1, 11):
             # will fill up later
             autocorr_dict[i] = 0
 
@@ -90,6 +87,10 @@ def runner(polynom, out_file):
             autocorr_dict,
             period
         )
+
+        for d in range(1, 11):
+            for i in range(0, period[0]):
+                autocorr_dict[d] += (res[i] + res[(i+d) % period[0]]) % 2
 
         message = (
             f"\nInitial state: {''.join([str(i) for i in initial_array])}\n"
@@ -119,10 +120,10 @@ def runner(polynom, out_file):
 
 def main():
     polynoms = [
+        (24,17,14,13,12,9,6,0),
         (20,18,11,10,8,7,6,5,0),
-        (24,17,14,13,12,9,6,0)
     ]
-    for i in range(0, len(polynoms)):
+    for i in range(1, len(polynoms)):
         filename = f"out{i}.txt"
         out_file = open(filename, "w") 
         runner(polynoms[i], out_file)
