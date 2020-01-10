@@ -6,13 +6,18 @@ from collections import defaultdict
 import asyncio
 
 @njit()
-def lfsr(init_state, curr_state, polynom, autocorr, period):
+def lfsr(init_state, curr_state, polynom, period):
     counter = 0
     prev_list = List()
     while True:
-        for d in range(1, 11):
-            for i in range(0, curr_state.size):
-                prev_list.append(curr_state[i])
+        for i in range(0, curr_state.size):
+            prev_list.append(curr_state[i])
+
+        for i in range(0, curr_state.size):
+            if curr_state[i] == prev_list[i]:
+                # for j in range(0, curr_state.size):
+                for i in range(0, curr_state.size):
+                    prev_list.append(curr_state[i])
 
         new_bit = 0
         for item in polynom:
@@ -73,30 +78,26 @@ def runner(polynom, out_file):
         initial_array = np.array(init_state, np.int64)
         polynom_array = np.array(polynom, np.int64)
         current_array = np.copy(initial_array)
-        autocorr_dict = Dict.empty(key_type=types.int64, value_type=types.int64)
-
-        for i in range(1, 11):
-            # will fill up later
-            autocorr_dict[i] = 0
+        autocorr_dict = defaultdict(int)
 
         period = np.ones(1, dtype=np.int64)
         res = lfsr(  # linear feedback shift register runs here
             initial_array,
             current_array,
             polynom_array,
-            autocorr_dict,
             period
         )
 
+        print(period[0], autocorr_dict)
         for d in range(1, 11):
             for i in range(0, period[0]):
-                autocorr_dict[d] += (res[i] + res[(i+d) % period[0]]) % 2
+                autocorr_dict[d] += (res[i] ^ res[(i+d) % period[0]]) % 2
 
         message = (
             f"\nInitial state: {''.join([str(i) for i in initial_array])}\n"
             f"period: {period[0]}\n"
             f"result state: {''.join([str(i) for i in current_array])}\n"
-            f"autocorrection values: {autocorr_dict}\n" + "="*40 + "\n"
+            f"autocorrection values: {autocorr_dict}\n" + "=" * 40 + "\n"
         )
         print(message)
         out_file.write(message)
@@ -120,10 +121,9 @@ def runner(polynom, out_file):
 
 def main():
     polynoms = [
-        (24,17,14,13,12,9,6,0),
         (20,18,11,10,8,7,6,5,0),
     ]
-    for i in range(1, len(polynoms)):
+    for i in range(0, len(polynoms)):
         filename = f"out{i}.txt"
         out_file = open(filename, "w") 
         runner(polynoms[i], out_file)
